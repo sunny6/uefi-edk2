@@ -1,0 +1,48 @@
+TianoCore Development kit
+        1. git clone https://github.com/tianocore/edk2.git
+        2. cd edk2
+        3. make -C BaseTools
+        4. ./edksetup.sh
+        5. setup path for build and Trim 
+                export PATH=$PATH:/home/devbox/efi-work/tools/edk2/BaseTools/BinWrappers/PosixLike/
+        6. Setup build target :-
+                edit Conf/target.txt
+                
+                Find
+
+                        ACTIVE_PLATFORM       = MdeModulePkg/MdeModulePkg.dsc
+
+                and replace it with
+
+                        ACTIVE_PLATFORM       = MdeModulePkg/MdeModulePkg.dsc OR the module directory you like to build like DuetPkg/DuetPkg64.dsc
+
+                Find
+
+                        TOOL_CHAIN_TAG        = MYTOOLS 
+
+                and replace it with GCC version
+
+                        TOOL_CHAIN_TAG        = GCC49 
+
+                Find
+
+                        TARGET_ARCH           = IA32 
+
+                and replace it with 'X64' for 64bit or 'IA32 X64' to build both architectures.
+
+                        TARGET_ARCH           = X64
+
+
+        7. compile using build command
+        8. if build fails go through error and solve it few packages may be missing like iasl, nasm etc
+        9. Check my demo app attached
+        10. For Building an app :-
+                1. Create on folder ex SkApps
+                2. Place hi.c and hi.inf files in app folder
+                3. Make sure hi.inf and hi.c have corrected syntax (Net versions are old and these attached files are compiled sucessfully so ...)
+                4. Make entry in dsc file for active platform (Ex Duet/DuetPkg64.dsc)
+                   to the the [Components] section and before the [BuildOptions] section. 
+                   (e.g. SkAaps/SkAaps.inf )
+                5. Build
+                6. Final Output .efi file will be in the directory WorkSpace/Build/DuetPkgX64/DEBUG_GCC49/
+
